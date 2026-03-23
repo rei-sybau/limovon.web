@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>э.л — рассказы и стихи</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff; /* Change background color as desired */
+        }
+        .title {
+            position: absolute;
+            top: 1px;
+            left: 2px;
+            font-size: 26px;
+            color: black; /* Change title color as desired */
+        }
+        .group {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: move;
+            text-align: center; /* Align text link to the center */
+        }
+        .image {
+            width: 60px;
+            height: 60px;
+            background-image: url('images/txt.png'); /* Replace 'your-image-url.jpg' with your image URL */
+            background-size: cover; /* Adjust background size as needed */
+            background-repeat: no-repeat; /* Prevent image from repeating */
+        }
+        .text-link {
+            display: block;
+            font-family: sans-serif;
+            font-size: 14px;
+            margin-top: 10px;
+            text-decoration: none;
+            color: blue; /* Change link color as desired */
+        }
+        .year {
+            position: absolute;
+            bottom: 0px;
+            left: 2px;
+            font-size: 26px;
+            color: black; /* Change title color as desired */
+        }
+        /* Add any additional styles here */
+    </style>
+</head>
+<body>
+    <div class="title">Эдуард Лимонов — рассказы и стихи</div>
+    <div class="year">2024</div>
+
+    <div class="group" id="draggable1" style="top: 100px; left: 100px;">
+        <div class="image"></div>
+        <a href="eastsidewestside.html" class="text-link" onmousedown="event.stopPropagation()">Ист-сайд—вест-сайд</a>
+    </div>
+
+    <div class="group" id="draggable2" style="top: 400px; left: 250px;">
+        <div class="image"></div>
+        <a href="epokhabezsoznaniya.html" class="text-link" onmousedown="event.stopPropagation()">Эпоха бессознания</a>
+    </div>
+
+    <div class="group" id="draggable3" style="top: 300px; left: 150px;">
+        <div class="image"></div>
+        <a href="excesses.html" class="text-link" onmousedown="event.stopPropagation()">Эксцессы</a>
+    </div>
+
+    <!-- Add your content here -->
+
+    <script>
+        // JavaScript for making the groups draggable
+        function makeDraggable(elementId) {
+            const draggableElement = document.getElementById(elementId);
+            let offsetX, offsetY;
+
+            // Function to handle dragging
+            function startDrag(e) {
+                if (e.target.classList.contains('text-link')) {
+                    return; // Do not start dragging if clicking on the text link
+                }
+                // Capture initial mouse position relative to the draggable element
+                offsetX = e.clientX - draggableElement.getBoundingClientRect().left;
+                offsetY = e.clientY - draggableElement.getBoundingClientRect().top;
+
+                // Start dragging
+                document.addEventListener('mousemove', onMouseMove);
+                document.addEventListener('mouseup', onMouseUp);
+            }
+
+            // Function to handle mouse movement during dragging
+            function onMouseMove(e) {
+                // Update the position of the draggable element based on mouse movement
+                const newX = e.clientX - offsetX;
+                const newY = e.clientY - offsetY;
+                draggableElement.style.left = newX + 'px';
+                draggableElement.style.top = newY + 'px';
+            }
+
+            // Function to handle mouseup event to stop dragging
+            function onMouseUp() {
+                // Stop dragging
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            }
+
+            // Listen for mousedown event on the group div
+            draggableElement.addEventListener('mousedown', startDrag);
+        }
+
+        // Make each group draggable
+        makeDraggable('draggable1');
+        makeDraggable('draggable2');
+        makeDraggable('draggable3');
+    </script>
+</body>
+</html>
+
